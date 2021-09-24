@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Joseph-Mutua/agar_clone#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "helmet": "^4.6.0",
     "socket.io": "^4.2.0"
   }
 }
