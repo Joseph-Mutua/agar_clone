@@ -1,5 +1,6 @@
 function init() {
   draw();
+  console.log(orbs);
 }
 
 // =============DRAWING=============
@@ -9,11 +10,11 @@ player.locX = Math.floor(500 * Math.random() + 10);
 player.locY = Math.floor(500 * Math.random() + 10);
 
 function draw() {
-  //Clear the Screen out so the last stuff is gone from the game
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
   //Reset Translation back to default
   context.setTransform(1, 0, 0, 1, 0, 0);
+
+  //Clear the Screen out so the last stuff is gone from the game
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
   //Clamp the camera to the player
   const camX = -player.locX + canvas.width / 2;
@@ -30,17 +31,25 @@ function draw() {
   //Arg 4 = Where to Start on the Circle in Radians
   //Arg 5 = Where to Stop in Radians
   context.arc(player.locX, player.locY, 10, 0, Math.PI * 2);
-  context.arc(200, 200, 10, 0, Math.PI * 2);
+  // context.arc(200, 200, 10, 0, Math.PI * 2);
 
   context.fill();
   context.lineWidth = 3;
   context.strokeStyle = "rgb(0, 255, 0)";
   context.stroke();
+
+  orbs.forEach((orb) => {
+    context.beginPath();
+    context.fillStyle = orb.color;
+    context.arc(orb.locX, orb.locY, orb.radius, 0, Math.PI * 2);
+    context.fill();
+  });
+
   requestAnimationFrame(draw);
 }
 
 canvas.addEventListener("mousemove", (event) => {
-  console.log(event);
+  // console.log(event);
   const mousePosition = {
     x: event.clientX,
     y: event.clientY,
