@@ -6,8 +6,8 @@ function init() {
 // =============DRAWING=============
 // =================================
 
-player.locX = Math.floor(500 * Math.random() + 10);
-player.locY = Math.floor(500 * Math.random() + 10);
+player.locX = Math.floor(500 * Math.random() + 100);
+player.locY = Math.floor(500 * Math.random() + 100);
 
 function draw() {
   //Reset Translation back to default
