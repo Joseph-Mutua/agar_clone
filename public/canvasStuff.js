@@ -1,9 +1,5 @@
-
 // =============DRAWING=============
 // =================================
-
-player.locX = Math.floor(500 * Math.random() + 100);
-player.locY = Math.floor(500 * Math.random() + 100);
 
 function draw() {
   //Reset Translation back to default
@@ -12,6 +8,8 @@ function draw() {
   //Clear the Screen out so the last stuff is gone from the game
   context.clearRect(0, 0, canvas.width, canvas.height);
 
+  console.log(player.locX, player.locY);
+
   //Clamp the camera to the player
   const camX = -player.locX + canvas.width / 2;
   const camY = -player.locY + canvas.height / 2;
@@ -19,21 +17,25 @@ function draw() {
   //Translate alows us to move the canvas around
   context.translate(camX, camY);
 
-  context.beginPath();
-  context.fillStyle = "rgb(255,0,0)";
+  //Draw all the players
+  players.forEach((p) => {
+    context.beginPath();
+    context.fillStyle = p.color;
 
-  //Arg 1,2 = x, y coordinates of circle
-  //Arg 3 = Radius
-  //Arg 4 = Where to Start on the Circle in Radians
-  //Arg 5 = Where to Stop in Radians
-  context.arc(player.locX, player.locY, 10, 0, Math.PI * 2);
-  // context.arc(200, 200, 10, 0, Math.PI * 2);
+    //Arg 1,2 = x, y coordinates of circle
+    //Arg 3 = Radius
+    //Arg 4 = Where to Start on the Circle in Radians
+    //Arg 5 = Where to Stop in Radians
+    context.arc(p.locX, p.locY, 10, 0, Math.PI * 2);
+    // context.arc(200, 200, 10, 0, Math.PI * 2);
 
-  context.fill();
-  context.lineWidth = 3;
-  context.strokeStyle = "rgb(0, 255, 0)";
-  context.stroke();
+    context.fill();
+    context.lineWidth = 3;
+    context.strokeStyle = "rgb(0, 255, 0)";
+    context.stroke();
+  });
 
+  //Draw all the orbs
   orbs.forEach((orb) => {
     context.beginPath();
     context.fillStyle = orb.color;
@@ -71,19 +73,6 @@ canvas.addEventListener("mousemove", (event) => {
     yVector = 1 - (angleDeg + 90) / 90;
   }
 
-  speed = 10;
-  xV = xVector;
-  yV = yVector;
-
-  if (
-    (player.locX < 5 && player.xVector < 0) ||
-    (player.locX > 500 && xV > 0)
-  ) {
-    player.locY -= speed * yV;
-  } else if ((player.locY < 5 && yV > 0) || (player.locY > 500 && yV < 0)) {
-    player.locX += speed * xV;
-  } else {
-    player.locX += speed * xV;
-    player.locY -= speed * yV;
-  }
+  player.xVector = xVector;
+  player.yVector = yVector;
 });
